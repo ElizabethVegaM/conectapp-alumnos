@@ -4,7 +4,6 @@ firebase.database().ref('messages')
   .limitToLast(5) // Filtro para no obtener todos los mensajes
   .once('value')
   .then((messages) => {
-    console.log('Mensajes > ' + JSON.stringify(messages));
   })
   .catch((error) => {
     console.log('Error > ' + error);
@@ -48,7 +47,7 @@ function sendPost() {
   if (messageAreaText.length < 1) {
     alert('Debes ingresar un mensaje');
   } else {
-  // Para tener una nueva llave en la colección messages
+    // Para tener una nueva llave en la colección messages
     const newMessageKey = firebase.database().ref().child('messages').push().key;
     firebase.database().ref(`messages/${newMessageKey}`).set({
       creator: currentUser.uid,
@@ -63,32 +62,27 @@ function sendPost() {
 
 function deleteButton(event) {
 
-  if(confirm("¿Estás seguro de eliminar este mensaje?")) {
+  if (confirm("¿Estás seguro de eliminar este mensaje?")) {
     event.stopPropagation();
-  const messagesId = event.target.getAttribute('data-id');
-  const messagesRef = firebase.database().ref('messages').child(messagesId);
-  messagesRef.remove();
-  messageContainer.removeChild(messageContainer.childNodes[0] && messageContainer.childNodes[1]);
-
-} else {
-  
+    const messagesId = event.target.getAttribute('data-id');
+    const messagesRef = firebase.database().ref('messages').child(messagesId);
+    messagesRef.remove();
+    messageContainer.removeChild(messageContainer.childNodes[0] && messageContainer.childNodes[1]);
+  } else {
+  }
 }
-}
-
-
 
 function editButton(event) {
   messageId = event.target.getAttribute('data-id');
   let message = document.getElementById(`${messageId}-txt`);
   message.readOnly = false;
-  message.onkeypress = function(event) {
+  message.onkeypress = function (event) {
     let value = message.value;
     if (event.keyCode === 13) {
       firebase.database().ref(`messages/${messageId}`).update({
         text: value
       });
       message.readOnly = true;
-      console.log('Cambios guardados');
     };
   };
 }
@@ -96,7 +90,7 @@ function editButton(event) {
 function addStar(event) {
   event.stopPropagation();
   const messageId = event.target.getAttribute('data-id');
-  firebase.database().ref(`messages/${messageId}`).once('value', function(message) {   
+  firebase.database().ref(`messages/${messageId}`).once('value', function (message) {
     let result = (message.val().starsCount || 1);
     firebase.database().ref('messages').child(messageId).update({
       starsCount: result + 1
@@ -105,6 +99,3 @@ function addStar(event) {
     event.target.style.color = '#f3f170';
   });
 }
-
-var textarea = document.getElementById('messageInput');
-textarea.scrollTop = textarea.scrollHeight;

@@ -542,81 +542,6 @@ i:hover {
   font-weight: 500;
 }
 
-/*PROBANDO lo de chatpost*/
-
-#comment {
-  width: 100%;
-  height: 4em;
-  color: #807e7e;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  padding: 1em;
-  border: 1px solid #807e7e;
-  border-radius: 5px;
-  margin-top: 10%;
-}
-
-#btn {
-  float: right;
-  background-color: #82ccd5;
-  border: none;
-  color: white;
-  width: 30%;
-  padding: 8px;
-  text-align: center;
-  font-size: 16px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#btn:hover {
-  background-color: #5590A6;
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
-#cont {
-  margin-top: 5%;
-  width: 100%;
-  height: 4em;
-  color: #807e7e;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  padding: 1em;
-  border-radius: 5px;
-}
-
-#cont div {
-  padding: 1em;
-  margin-bottom: 2em;
-  border-radius: 5px;
-  border: 1px solid #807e7e;
-  background-color: #FFF;
-}
-
-.heart,
-.trash,
-.fa-pencil-alt {
-  margin: 1em;
-  float: right;
-  cursor: pointer;
-}
-
-.heart:hover,
-.trash:hover,
-.fa-pencil-alt:hover {
-  color: greenyellow;
-  cursor: pointer;
-}
-
-.blue {
-  color: #5590A6;
-  cursor: pointer;
-}
-
-p {
-  display: inline-block;
-  margin-left: 0.5em;
-}
-
 /* Estilos del chat */
 
 .chat_window {
@@ -655,6 +580,26 @@ p {
   font-size: 20px;
 }
 
+#users-online{
+  margin: 0% 0% 0% 75%;
+  color: #82ccd5;
+  font-size: 20px;
+}
+#contentUserOnline{
+  width: 100%;
+  text-align: center;
+  padding: 0%;
+}
+.modalConect{
+  text-align: center;
+}
+.listUsers{
+  display: block;
+  color: #333333;
+  list-style: none;
+  font-size: 20px;
+  padding: 2%;
+}
 .messagesContainer {
   list-style: none;
   padding: 20px 10px 0 10px;
@@ -702,7 +647,6 @@ p {
 .my-message {
   background: rgb(176, 201, 204);
 }
-
 .bottom_wrapper {
   position: relative;
   width: 100%;
@@ -740,6 +684,8 @@ p {
 
 .bottom_wrapper .send_message {
   margin-right: 2%;
+  margin-top: 6%;
+  width: 20%;
   display: inline;
   border-radius: 50px;
   background-color: rgb(255, 255, 255);
@@ -748,6 +694,7 @@ p {
   cursor: pointer;
   transition: all 0.2s linear;
   text-align: center;
+  float: right;
 }
 
 .bottom_wrapper .send_message:hover {
@@ -771,6 +718,9 @@ p {
     right: 0;
     top: 0;
   }
+  #users-online{
+    margin: 1% 0% 0% 0%;
+  }  
   #titleImg {
     height: 7vh;
   }

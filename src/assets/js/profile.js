@@ -3,7 +3,6 @@ updatePic.addEventListener('change', function(event) {
   let storageRef = firebase.storage().ref().child(firebase.auth().currentUser.Nb.email + '/profilePic.jpeg');
   let firstFile = event.target.files[0]; // upload the first file only
   let uploadTask = storageRef.put(firstFile);
-  console.log(uploadTask);
   saveChanges.classList.remove('d-none');
 });
 
@@ -12,7 +11,6 @@ function updatePhoto() {
     firebase.auth().currentUser.updateProfile({
       photoURL: url
     }).then(function() {
-      console.log('Cambios guardados');
       firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
         profilePicture: firebase.auth().currentUser.photoURL
       });
@@ -46,10 +44,8 @@ saveBtn.addEventListener('click', () => {
   firebase.auth().currentUser.updateProfile({
     displayName: userName.value
   }).then(function() {
-    console.log('Cambios guardados');
     $('#userName').attr('readonly', true);
     userName.style.background = 'transparent';
     saveBtn.classList.add('d-none');
   });
 });
-
