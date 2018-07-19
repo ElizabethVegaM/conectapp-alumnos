@@ -62,7 +62,10 @@ function login() {
   loginAlert.style.display = 'none';
   firebase.auth().signInWithEmailAndPassword(emailValue, passwordValue)
     .then(() => {
+      firstSection.style.display = 'none';
+      wall.classList.remove('d-none');
       loggedIn.classList.remove('d-none');
+      avatarPic.src = user.photoURL;
       console.log('Usuario con login exitoso');
     })
     .catch((error) => {
