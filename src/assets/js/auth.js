@@ -1,15 +1,15 @@
 let userConect = null;
 let conectKey = '';
-
+let contUser = 0;
 window.onload = () => {
   inicialize();
 };
 
 // Funcion inicial
-function inicialize() {  
+function inicialize() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-    // Si estamos logueados esconder "registro"
+      // Si estamos logueados esconder "registro"
       firstSection.style.display = 'none';
       wall.classList.remove('d-none');
       loggedIn.classList.remove('d-none');
@@ -18,18 +18,21 @@ function inicialize() {
       // nueva coleccion de users conectados
       userConect = firebase.database().ref('/users-conect');
       usersAdd(user.uid, user.displayName);
-    
+      // Escucha usuarios al desconectar
       userConect.on('child_removed', (dataUser) => {
-      //  alert(`${dataUser.val().name} ha salido de la sala`);
+        contUser--;
+        contUsers.innerHTML = (contUser);
+        usersDisconect(dataUser.val().uid);
       });
+      // Escucha usuarios al conectar
       userConect.on('child_added', (dataUser) => {
-      //  alert(`${dataUser.val().name} ha ingresado a la sala`);
+        contUser = contUser + 1;
+        contUsers.innerHTML = (contUser);
+        usersConect(dataUser.val().name, dataUser.val().uid);
       });
-      
-      console.log('User > ' + JSON.stringify(user));
       showInfo(user);
     } else {
-    // No estamos logueados esconder 'Cerrar Sesión'
+      // No estamos logueados esconder 'Cerrar Sesión'
       loggedIn.classList.add('d-none');
       firstSection.style.display = 'block';
     }
@@ -82,7 +85,6 @@ function login() {
 function logout() {
   firebase.auth().signOut()
     .then(() => {
-      console.log('chao');
       profile.classList.add('d-none');
       wall.classList.add('d-none');
       loggedIn.classList.add('d-none');
@@ -142,4 +144,17 @@ function usersAdd(uid, name) {
 
 function usersRemove() {
   firebase.database().ref(`/users-conect/${conectKey}`).remove();
+}
+
+function usersConect(name, uid) {
+  const li = `
+    <li id="${uid}" class= "listUsers">
+      ${name}</span>
+    </li>
+  `;
+  contentUserOnline.innerHTML += li;
+}
+
+function usersDisconect(uid) {
+  $('#' + uid).remove();
 }

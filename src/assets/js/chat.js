@@ -24,6 +24,7 @@ firebase.database().ref('chat')
       `;
   });
 
+
 function sendMessage(event) {
   send.disabled = true;
   const currentUser = firebase.auth().currentUser;

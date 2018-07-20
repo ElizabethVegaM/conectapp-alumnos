@@ -4,7 +4,6 @@ firebase.database().ref('messages')
   .limitToLast(5) // Filtro para no obtener todos los mensajes
   .once('value')
   .then((messages) => {
-    console.log('Mensajes > ' + JSON.stringify(messages));
   })
   .catch((error) => {
     console.log('Error > ' + error);
@@ -82,7 +81,6 @@ function editButton(event) {
         text: value
       });
       message.readOnly = true;
-      console.log('Cambios guardados');
     };
   };
 }

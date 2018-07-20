@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ConectApp Alumnos</title>
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <!-- con favicon -->
+  <link rel="shortcut icon" type="image/png" href="/src/assets/img/logo.png" />
+  <!-- Estilos -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <!-- Página de bienvenida -->
+  <section class="initialPage" id="firstSection">
+    <!--Logo app-->
+    <div class="text-center">
+      <img src="assets/img/logo.png" class="rounded logo img-fluid" alt="logo-portada">
+    </div>
+    <!--Inicio sesión manual-->
+    <div class="row">
+      <div class="col-md-6 offset-md-3 register" id="loggedOut">
+        <p class="alert" id="loginAlert">Debes rellenar todos los campos</p>
+        <div class="input-group inputRegister">
+          <input type="email" class="form-control" placeholder="Email" id="email">
+          <div class="input-group-append icon-input">
+            <span class="input-group-text" id="basic-addon2">
+              <i class="far fa-envelope"></i>
+            </span>
+          </div>
+        </div>
+        <div class="input-group inputRegister">
+          <input type="password" class="form-control" placeholder="Contraseña" id="password">
+          <div class="input-group-append icon-input">
+            <span class="input-group-text" id="basic-addon2">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
+        </div>
+        <button class="btn" id="login" onclick="login()">
+          <span>Iniciar Sesión</span>
+          <span class="icon">
+            <i class="fas fa-angle-double-right"></i>
+          </span>
+        </button>
+        <!-- Inicio Registro -->
+        <div class="container-modal">
+          <p class="modalTxt">¿Aún no estás registrado?</p>
+          <!-- Button trigger modal Register -->
+          <button type="button" class="btn btn-primary boton-modal" data-toggle="modal" data-target="#modalRegister">
+            REGÍSTRATE
+          </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalRegisterTitle">Bienvenido, Registrate en la mejor app</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+              </div>
+              <div class="modal-body">
+                <p class="alert" id="alertLogin">Debes rellenar todos los campos</p>
+                <div class="containerModal">
+                  <label for="login-mail" class="form-label">Correo Electronico</label>
+                  <input id="loginUser" class="form-control" type="email" placeholder="Email" />
+                  <label for="login-pass" class="form-label">Contraseña</label>
+                  <input id="loginPass" class="form-control" type="password" placeholder="Contraseña" />
+                  <p class="min">minimo 6 caracteres</p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-register" id="btnRegister" onclick="register()" data-dismiss="modal">REGISTRARME</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Inicio sesión automatico-->
+        <hr>
+        <button class="btn" id="loginFacebook" onclick="loginFacebook()">
+          <span class="icon">
+            <i class="fab fa-facebook"></i>
+          </span>
+          <span>Iniciar con Facebook</span>
+        </button>
+        <button class="btn" id="loginGoogle" onclick="loginGoogle()">
+          <span class="icon">
+            <i class="fab fa-google-plus-g"></i>
+          </span>
+          <span>Iniciar con Google</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra de navegación -->
+  <nav id="loggedIn" class="navbar navbar-light d-none">
+    <div class="top md-col-9">
+      <!-- Botón que despliega menú -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <div id="animatedBtn" class="animated-icon3">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+      <!-- Título de la barra -->
+      <span id="pageTitle" class="navbar-brand align-middle">
+        <img id="titleImg" src="assets/img/conectapp.png" alt="logo sin fondo">
+      </span>
+    </div>
+    <!-- Contenido -->
+    <div class="collapse navbar-collapse md-col-3" id="navbarSupportedContent1">
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="toWallPage()">
+            <i class="fas fa-users"></i>DIARIO MURAL</a>
+        </li>
+        <li class="nav-item">
+          <!-- con class active el elemento oscurece su color (agregar como evento con js) -->
+          <a class="nav-link" href="#" onclick="toActivitiesPage()">
+            <i class="far fa-star"></i>ACTIVIDADES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="toCouncilPage()">
+            <i class="fas fa-chalkboard-teacher"></i>CONSEJO DE CURSO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="toChatPage()">
+            <i class="far fa-comments"></i>CHAT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="toProfilePage()">
+            <i class="fas fa-user-graduate"></i>PERFIL</a>
+        </li>
+        <li class="nav-item">
+          <a id="logOutButton" onclick="logout()" class="nav-link" href="#">
+            <i class="fas fa-arrow-circle-left"></i>CERRAR SESIÓN</a>
+        </li>
+      </ul>
+      <img src="assets/img/logo-noBack.png" alt="logo-noBack">
+    </div>
+  </nav>
+
+  <!-- Tablero -->
+  <section id="wall" class="sections md-col-9 container-fluid d-none">
+    <div class="row">
+      <div class="col-12">
+        <!-- Publicar mensajes -->
+        <div class="card">
+          <div class="card-body">
+            <textarea id="messageArea" class="form-control" type="text" placeholder="Escribe tu mensaje"></textarea>
+            <input id="sendButton" type="button" value="Publicar" onclick="sendPost()">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div id="messageContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Actividades -->
+  <section id="activities" class="sections md-col-9 d-none">
+    <!-- Primera actividad -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Viaje fin de año</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/verano.png" alt="Vacaciones">
+          </div>
+          <p>Viaje de curso a Cartagena de Indias o Quintero.</p>
+          <p class="dateA">Fecha: 5-8 de Diciembre </p>
+        </div>
+      </div>
+
+      <!-- Segunda Actividad -->
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Fiesta fin de año</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/LogoMakr_1kqmyT.png" alt="Fiesta">
+          </div>
+          <p>Fiesta Fin de termino año escolar.</p>
+          <p class="dateA">Fecha: 3 de Diciembre </p>
+        </div>
+      </div>
+      <!-- Tercera Actividad -->
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Feria de Ciencias</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/ciencias.png" alt="Feria de Ciencias">
+          </div>
+          <p>Feria Interescolar de Ciencias.</p>
+          <p class="dateA">Fecha: 14 de Noviembre </p>
+        </div>
+      </div>
+      <!-- Cuarta Tarjeta -->
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Competencia de Artes</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/artes.png" alt="Artes">
+          </div>
+          <p>Competencia de Artes. Premio 1 millón de pesos + entrevista esclusiva en revista Condorito.</p>
+          <p class="dateA">Fecha: 10 de Octubre </p>
+        </div>
+      </div>
+      <!-- Quinta Tarjeta -->
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Fiestas Patrias</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/fiestasPatrias.png" alt="Fiestas Patrias">
+          </div>
+          <p>Semana de Fiestas Patrias. Tiki tiki ti tiki tiki ti!!!</p>
+          <p class="dateA">Fecha: 17-21 de Septiembre </p>
+        </div>
+      </div>
+      <!-- Sexta Tarjeta -->
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Día de la alimentación Saludable</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/fruta.png" alt="Frutas">
+          </div>
+          <p>Todos traer frutas favoritas, para realizar gran convivencia en la sala.</p>
+          <p class="dateA">Fecha: 6 de Agosto </p>
+        </div>
+      </div>
+      <!-- Séptima Tarjeta -->
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title">Vacaciones de Invierno</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/invierno.png" alt="Vacaciones de Invierno">
+          </div>
+          <p>¡A descansar y a cuidarse! </p>
+          <p class="dateA">Fecha: 18-27 de Julio </p>
+        </div>
+      </div>
+      <!-- Octava TArjeta -->
+      <div class="card finalConsejo">
+        <div class="card-header">
+          <h6 class="card-title">Exámenes fin de Semestre</h6>
+        </div>
+        <div class="card-body">
+          <div class="activityP">
+            <img src="assets/img/pruebas.png" alt="Prueba">
+          </div>
+          <p>Exámenes del primer semestre 2018. Asignaturas: ciencias, biología, inglés, lenguaje e historia. (Eximidos promedio
+            arriba de 6.0).</p>
+          <p class="dateA">Fecha: 2-6 de Julio </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consejo de Curso -->
+  <section id="council" class="sections md-col-9 d-none">
+    <!-- Primera tarjeta -->
+    <div class="card">
+      <div class="card-header">
+        <h6 class="card-title">Consejo de Curso 19 de Julio</h6>
+      </div>
+      <div class="card-body">
+        <p>Actividad de reflexión con respecto al funcionamiento actual del Consejo de Curso, favoreciendo la cohesión del grupo.</p>
+        <div class="photoConsejo">
+          <img src="assets/img/estudiantes.jpeg" alt="Curso 3° Medio">
+        </div>
+      </div>
+    </div>
+    <!-- Segunda Tarjeta -->
+    <div class="card">
+      <div class="card-header">
+        <h6 class="card-title">Consejo de Curso 11 de Julio</h6>
+      </div>
+      <div class="card-body">
+        <p>Implementación de ConectApp Alumnos, para la mejora de nuestra comunicación y convivencia.</p>
+        <p>
+          <strong>¡Gracias ConectApp Alumnos!</strong>
+        </p>
+        <div class="photoConsejo">
+          <img src="assets/img/risa-de-amigos-mirando-el-telefono-inteligente-en-el-parque_23-2147845770.jpg" alt="ConectApp">
+        </div>
+      </div>
+    </div>
+    <!-- Segunda Tarjeta -->
+    <div class="card finalConsejo">
+      <div class="card-header">
+        <h6 class="card-title">Consejo de Curso 4 de Julio</h6>
+      </div>
+      <div class="card-body">
+        <p>Confirmación de pruebas y trabajos para finalización de primer semestre.</p>
+        <div class="photoConsejo">
+          <img src="assets/img/prueba.jpg" alt="Prueba">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat -->
+  <section id="chat" class="sections md-col-9 d-none">
+    <!-- Inicio Chat-->
+    <div class="chat_window">
+      <div class="top_menu row">
+        <div class="col-lg-11 col-md-10 col-sm-12">
+          <img class="avatar-pic" id="avatarPic"></img>
+          <div class="title" id="titleChat"></div>
+        </div>
+        <div id="users-online" class="col-1"  data-toggle="modal" data-target="#modalOnline">
+          <i class="fas fa-users"></i>
+        </div>
+      </div>
+      <!-- Contenedor Mensajes -->
+      <div class="messagesContainer" id="messagesContainer"></div>
+      <!-- Area de envio -->
+      <div class="bottom_wrapper clearfix">
+        <div class="message_input_wrapper">
+          <textarea class="message-input" id="messageInput" name="myTextArea1" /> </textarea>
+       </div>
+        <div class="send_message" onclick="sendMessage(event)" id="send">
+          <div class="text">
+            <i class="far fa-paper-plane"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin Chat -->
+  </section>
+  <!-- Modal -->
+  <div class="modal fade" id="modalOnline" tabindex="-1" role="dialog" aria-labelledby="modalCont" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modalConect" id="modalCont">Usuarios Conectados <span id="contUsers"></span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="containerModal">
+            <ul id="contentUserOnline"></ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-register" data-dismiss="modal">VOLVER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Perfil de usuario -->
+  <section id="profile" class="container-fluid md-col-9 sections d-none">
+    <div class="profileContainer">
+      <article class="small-12 medium-2 large-2">
+        <div class="circle">
+          <img id="profilePic" class="profile-pic" src="">
+        </div>
+        <form id="cameraIcon" action="#" class="row">
+          <button id="cam">
+            <i class="fas fa-camera"></i>
+          </button>
+          <div id="photoChange" class="input-file-container d-none">
+            <input id="updatePic" accept="image/*" class="input-file" id="my-file" type="file" capture="camera">
+          </div>
+        </form>
+      </article>
+      <article class="userInfo small-12 medium-2 large-2 row">
+        <form>
+          <div class="form-group row">
+            <label for="userName" class="col-sm-2 col-form-label">NOMBRE</label>
+            <div class="col-sm-10">
+              <input id="userName" type="text" readonly class="form-control-plaintext">
+              <button id="diskBtn" onclick="changeName()">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button id="saveBtn" class="d-none">
+                <i class="far fa-save"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="userEmail" class="col-sm-2 col-form-label">CORREO</label>
+            <div class="col-sm-10">
+              <input id="userEmail" type="text" readonly class="form-control-plaintext">
+            </div>
+          </div>
+          <div id="saveChanges" class="form-btns row d-none">
+            <div class="btn btn-primary" onclick="updatePhoto()">GUARDAR</div>
+          </div>
+        </form>
+      </article>
+    </div>
+  </section>
+
+  <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDDPfdzZ-OL-5U1ZFgYEJd40Di3WdR36Wc",
+      authDomain: "social-network-d7373.firebaseapp.com",
+      databaseURL: "https://social-network-d7373.firebaseio.com",
+      projectId: "social-network-d7373",
+      storageBucket: "social-network-d7373.appspot.com",
+      messagingSenderId: "188592192471"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="assets/js/events.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/profile.js"></script>
+  <script src="assets/js/chat.js"></script>
+  <script src="assets/js/tab.js"></script>
+</body>
+
+</html>
