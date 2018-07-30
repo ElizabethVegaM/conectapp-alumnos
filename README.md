@@ -38,6 +38,7 @@ Los elementos básicos de esta red social son:
 
 ##Video Test de Usabilidad
 https://drive.google.com/file/d/1m3DzfJ46VeEsW9EnC6q7UIuEFlmdrpja/view?usp=sharing
+https://drive.google.com/open?id=1VlV-T-Yeh2KlsDSidUJurBEt-LE9GZlz
 
 ### Mobile first
 
