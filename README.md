@@ -4,4 +4,4 @@ Esta red social fue creada especialmente para  alumnos y profesores, en donde é
 
 ![image](https://user-images.githubusercontent.com/38758643/47226371-ba5cd000-d396-11e8-8a94-03418fc5b558.png)
 
-- Desarrollado para un empresario muy visionario mediante Laboratoria.
+- Desarrollado para [Laboratoria](www.laboratoria.la).
